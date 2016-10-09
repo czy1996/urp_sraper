@@ -81,7 +81,8 @@ class Lesson(Mixin):
      教室
     """
     def __init__(self, lesson):
-        self.weeks = lesson.get('weeks', '').strip()
+        self.weeks = lesson.get('weeks', '').strip('周')
+        self.weeks = self.weeks.strip()  # 想想就掏粪啊
         self.day = lesson.get('day', '').strip()
         self.lesson_index = lesson.get('lesson_index', '').strip()
         self.lesson_num = lesson.get('lesson_num', '').strip()
