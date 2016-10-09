@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 main_url = 'http://202.204.193.215/'
 login_url = main_url + 'loginAction.do'
-login_form = {'zjh': '2014011606', 'mm': 'czy5183031'}
+login_form = {'zjh': '2014011529', 'mm': 'hsw1996'}
 calender_url = main_url + 'xkAction.do?actionType=6'
 
 """

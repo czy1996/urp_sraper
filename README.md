@@ -1,5 +1,5 @@
 # urp_sraper
 
 ## TODO
-[ ] User model design
-[ ] Json formatting
+- [ ] User model design
+- [ ] Json formatting
