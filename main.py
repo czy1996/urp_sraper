@@ -58,16 +58,16 @@ class Course(Mixin):
 
     """
     def __init__(self, form):
-        self.plan = form.get('plan', None)
-        self.serial = form.get('serial', None)
-        self.name = form.get('name', None)
-        self.index = form.get('index', None)
-        self.credit = form.get('credit', None)
-        self.attr = form.get('attr', None)
-        self.test = form.get('test', None)
-        self.teacher = form.get('teacher', None)
-        self.studyStat = form.get('studyStat', None)
-        self.status = form.get('status', None)
+        self.plan = form.get('plan', '').strip()
+        self.serial = form.get('serial', '').strip()
+        self.name = form.get('name', '').strip()
+        self.index = form.get('index', '').strip()
+        self.credit = form.get('credit', '').strip()
+        self.attr = form.get('attr', '').strip()
+        self.test = form.get('test', '').strip()
+        self.teacher = form.get('teacher', '').strip()
+        self.studyStat = form.get('studyStat', '').strip()
+        self.status = form.get('status', '').strip()
 
 
 class Lesson(Mixin):
@@ -81,17 +81,20 @@ class Lesson(Mixin):
      教室
     """
     def __init__(self, lesson):
-        self.weeks = lesson.get('weeks', None)
-        self.day = lesson.get('day', None)
-        self.lesson_index = lesson.get('lesson_index', None)
-        self.lesson_num = lesson.get('lesson_num', None)
-        self.campus = lesson.get('campus', None)
-        self.building = lesson.get('building', None)
-        self.room = lesson.get('room', None)
+        self.weeks = lesson.get('weeks', '').strip()
+        self.day = lesson.get('day', '').strip()
+        self.lesson_index = lesson.get('lesson_index', '').strip()
+        self.lesson_num = lesson.get('lesson_num', '').strip()
+        self.campus = lesson.get('campus', '').strip()
+        self.building = lesson.get('building', '').strip()
+        self.room = lesson.get('room', '').strip()
         self.course = None
 
     def set_course(self, form):
         self.course = Course(form)
+
+
+
 
 
 """
@@ -181,7 +184,7 @@ def fill_course(trs, lessons):
                 'status': tds[10].string
             }
             for t in range(i, i + rowspan):
-                lessons[i].course = Course(form)
+                lessons[t].course = Course(form)
 
 
 
