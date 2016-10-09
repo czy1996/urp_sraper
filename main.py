@@ -26,7 +26,15 @@ calender_url = main_url + 'xkAction.do?actionType=6'
 # print(r.headers)
 
 
-class Course(object):
+class Mixin():
+    def __repr__(self):
+        properties = ['{}: ({})'.format(k, v) for k, v in self.__dict__.items()]
+        classname = self.__class__.__name__
+        s = '\n'.join(properties)
+        return '< {}\n{}>'.format(classname, s)
+
+
+class Course(Mixin):
     """
      培养方案
      课程号
@@ -62,7 +70,7 @@ class Course(object):
         self.status = form.get('status', None)
 
 
-class Lesson():
+class Lesson(Mixin):
     """
      周次
      星期
@@ -84,12 +92,6 @@ class Lesson():
 
     def set_course(self, form):
         self.course = Course(form)
-
-    def __repr__(self):
-        properties = ['{}: ({})'.format(k, v) for k, v in self.__dict__.items()]
-        classname = self.__class__.__name__
-        s = '\n'.join(properties)
-        return '< {}\n{}>'.format(classname, s)
 
 
 """
@@ -160,19 +162,34 @@ def get_lessons(trs):
 
 def fill_course(trs, lessons):
     for i, tr in enumerate(trs):
-        rowspaan = tr[0].get('rowspan', None)
-        if rowspaan is None:
+        tds = tr.find_all('td')
+        rowspan = tds[0].get('rowspan', None)
+        if rowspan is None:
             pass
         else:
-            rowspaan = int(rowspaan)
-            dict
-            for t in range(0, rowspaan):
+            rowspan = int(rowspan)
+            form = {
+                'plan': tds[0].string,
+                'serial': tds[1].string,
+                'name': tds[2].string,
+                'index': tds[3].string,
+                'credit': tds[4].string,
+                'attr': tds[5].string,
+                'test': tds[6].string,
+                'teacher': tds[7].string,
+                'studyStat': tds[9].string,
+                'status': tds[10].string
+            }
+            for t in range(i, i + rowspan):
+                lessons[i].course = Course(form)
 
 
 
 def test():
     trs = get_tr()
     lessons = get_lessons(trs)
+    fill_course(trs, lessons)
+    print(lessons)
 
 
 if __name__ == '__main__':
